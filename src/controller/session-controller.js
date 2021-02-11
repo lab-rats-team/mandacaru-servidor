@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcryptjs')
 const knex = require('../database/knex')
 const authConfig = require('../config/auth')
 
@@ -10,7 +11,8 @@ exports.create = async (req, res) => {
 		return res.status(404).json({ msg: 'Email not registered' })
 	}
 
-	const passwordCorrect = (password == player.password)
+	const hash = player.password
+	const passwordCorrect = await bcrypt.compare(password, hash)
 
 	if (!passwordCorrect) {
 		return res.status(401).json({ msg: 'Incorrect password' })
