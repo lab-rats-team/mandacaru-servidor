@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs')
+const Joi = require('joi')
 const knex = require('../database/knex')
 const maxSaves = require('../config/max-saves')
+const { emailConstraint, passwordConstraint } = require('../util/body-constraints')
 
 exports.list = async (req, res) => {
 	const players = await knex('players')
@@ -8,6 +10,16 @@ exports.list = async (req, res) => {
 }
 
 exports.create = async (req, res) => {
+	const schema = Joi.object({
+		email: emailConstraint,
+		password: passwordConstraint
+	})
+
+	try { await schema.validateAsync(req.body) }
+	catch (err) {
+		return res.status(422).json({ msg: err.details[0].message })
+	}
+
 	const { email, password } = req.body
 
 	if ((await knex('players').where({ email }).limit(1)).length !== 0) {
