@@ -27,7 +27,7 @@ exports.saveDataConstraint =
 		.required()
 		.messages({
 			'string.base': `Data must be a string`,
-			'string.empty': 'Data must not be empty',
+			'string.empty': `Data must not be empty`,
 			'any.required': `Data is required`
 		})
 

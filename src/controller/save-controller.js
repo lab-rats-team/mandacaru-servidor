@@ -5,13 +5,13 @@ const maxSaves = require('../config/max-saves')
 
 exports.list = async (req, res) => {
 	if (!/^[1-9]{1}[0-9]*$/.test(req.params.playerId)) {
-		return res.status(422).json({ msg: 'playerId must be a positive a positive integer' })
+		return res.status(422).json({ msg: 'playerId must be a positive integer' })
 	}
 
 	const playerId = parseInt(req.params.playerId)
 
 	if (playerId !== req.playerId) {
-		return res.status(401).json({ msg: 'Unauthorized' })
+		return res.status(403).json({ msg: 'Forbidden' })
 	}
 
 	const [player] = await knex('players').where({ playerId }).limit(1)
@@ -50,7 +50,7 @@ exports.update = async (req, res) => {
 	const { data } = req.body
 
 	if (playerId !== req.playerId) {
-		return res.status(401).json({ msg: 'Unauthorized' })
+		return res.status(403).json({ msg: 'Forbidden' })
 	}
 
 	const [player] = await knex('players').where({ playerId }).limit(1)
@@ -81,7 +81,7 @@ exports.erase = async (req, res) => {
 	}
 
 	if (playerId !== req.playerId) {
-		return res.status(401).json({ msg: 'Unauthorized' })
+		return res.status(403).json({ msg: 'Forbidden' })
 	}
 
 	const [player] = await knex('players').where({ playerId }).limit(1)
