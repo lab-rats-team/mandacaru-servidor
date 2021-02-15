@@ -1,10 +1,13 @@
 const express = require('express')
 const authMiddleware = require('./middleware/auth')
+const languageMiddleware = require('./middleware/language')
 const playerController = require('./controller/player-controller')
 const saveController = require('./controller/save-controller')
 const sessionController = require('./controller/session-controller')
 
 const routes = express.Router()
+
+routes.use(languageMiddleware)
 
 routes.get('/players', playerController.list)
 routes.post('/players', playerController.create)
