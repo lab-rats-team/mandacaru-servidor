@@ -1,5 +1,5 @@
 {
-  "name": "servidor-mandacaru",
+  "name": "mandacaru-servidor",
   "version": "0.4.0",
   "description": "",
   "main": "src/server.js",
@@ -8,7 +8,7 @@
     "development": "nodemon src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Pedro César Mesquita Ferreira",
+  "author": "aofasi",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
